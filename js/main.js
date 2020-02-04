@@ -9,6 +9,7 @@ const rate = document.querySelector('#rate');
 const rateValue = document.querySelector('#rate-value');
 const pitch = document.querySelector('#pitch');
 const pitchValue = document.querySelector('#pitch-value');
+const body = document.querySelector('body');
 
 // Init voices array
 let voices = [];
@@ -38,6 +39,7 @@ if(synth.onvoiceschanged !== undefined) {
 
 // Speak
 const speak = () => {
+
     // Check if speaking
     if(synth.speaking) {
         console.error('Already speaking...');
@@ -45,10 +47,16 @@ const speak = () => {
     }
     // Check if textInput is not null
     if(textInput.value !== '') {
+
+        // Add background animation
+        body.style.background = '#000000 url(../img/sound.gif)';
+        body.style.backgroundRepeat = 'repeat-x';
+        body.style.backgroundSize = '100% 100%';
         const speakText = new SpeechSynthesisUtterance(textInput.value);
         // End speaking
         speakText.onend = e => {
             console.log('Done speaking');
+            body.style.background = '#000000';
         }
 
         // Speak error
